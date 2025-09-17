@@ -1,8 +1,10 @@
 #include "Character/CCharacter.h"
+#include "Components/SkeletalMeshComponent.h"
 
 ACCharacter::ACCharacter()
 {
 	PrimaryActorTick.bCanEverTick = true;
+	GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
 void ACCharacter::BeginPlay()
