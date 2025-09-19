@@ -9,5 +9,16 @@ UCLASS()
 class ACPlayerController : public APlayerController
 {
 	GENERATED_BODY()
+
+public:
+	//Only called on the server
+	void OnPossess(APawn* NewPawn) override;
+
+	//Only called on client and on the listen server
+	void AcknowledgePossession(APawn* NewPawn) override;
+
+private:
+	UPROPERTY()
+	class ACPlayerCharacter* CPlayerCharacter;
 	
 };
