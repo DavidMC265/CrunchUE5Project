@@ -17,8 +17,17 @@ public:
 	//Only called on client and on the listen server
 	void AcknowledgePossession(APawn* NewPawn) override;
 
+	void SpawnGameplayWiget();
+
 private:
 	UPROPERTY()
 	class ACPlayerCharacter* CPlayerCharacter;
+
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<class UGameplayWidget> GameplayWidgetClass;
+
+	UPROPERTY()
+	class UGameplayWidget* GameplayWidget;
+
 	
 };
