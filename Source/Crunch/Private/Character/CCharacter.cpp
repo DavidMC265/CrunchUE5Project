@@ -2,6 +2,8 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "GAS/CAbilitySystemComponent.h"
 #include "GAS/CAttributeSet.h"
+#include "Components/WidgetComponent.h"
+#include "Widgets/OverheadStatsGauge.h"
 
 ACCharacter::ACCharacter()
 {
@@ -10,11 +12,16 @@ ACCharacter::ACCharacter()
 
 	CAbilitySystemComponent = CreateDefaultSubobject<UCAbilitySystemComponent>(TEXT("CAbility System Component"));
 	CAttributeSet = CreateDefaultSubobject<UCAttributeSet>(TEXT("CAttribute Set"));
+
+	OverheadWidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("Over Head Widget Component"));
+	OverheadWidgetComponent->SetupAttachment(GetRootComponent());
 }
 
 void ACCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	ConfigureOverHeadStatusWidget();
 }
 
 void ACCharacter::Tick(float DeltaTime)
@@ -48,7 +55,17 @@ void ACCharacter::ClientSideInit()
 	{
 		CAbilitySystemComponent->InitAbilityActorInfo(this, this);
 	}
-
 }
 
+void ACCharacter::ConfigureOverHeadStatusWidget()
+{
+	if (!OverheadWidgetComponent) { return; }
+
+	UOverheadStatsGauge* OverHeadStatusGauge = Cast<UOverheadStatsGauge>(OverheadWidgetComponent->GetUserWidgetObject());
+
+	if (OverHeadStatusGauge)
+	{
+		OverHeadStatusGauge->ConfigureWithASC(GetAbilitySystemComponent());
+	}
+}
 

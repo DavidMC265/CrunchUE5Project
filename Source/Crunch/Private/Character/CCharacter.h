@@ -27,7 +27,6 @@ public:
 	/*******************************************************************************/
 	/*                               Gameplay Ability                              */
 	/*******************************************************************************/
-
 public:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
@@ -37,5 +36,15 @@ private:
 
 	UPROPERTY()
 	class UCAttributeSet* CAttributeSet;
+
+
+	/*******************************************************************************/
+	/*                               UI                                            */
+	/*******************************************************************************/
+private:
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	class UWidgetComponent* OverheadWidgetComponent;
+
+	void ConfigureOverHeadStatusWidget();
 
 };
